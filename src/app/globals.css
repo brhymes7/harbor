@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/*
+  Harbor tokens. Warm-tinted neutrals do 80–90% of the work (taste playbook §5),
+  one clay accent carries the primary action, and a single teal is reserved for support.
+*/
+:root {
+  --bg: #f6f2ec;
+  --surface: #fbf8f4;
+  --surface-2: #efe8df;
+  --ink: rgba(38, 28, 22, 0.92);
+  --ink-2: rgba(38, 28, 22, 0.64);
+  --ink-3: rgba(38, 28, 22, 0.46);
+  --hairline: rgba(38, 28, 22, 0.1);
+  --hairline-strong: rgba(38, 28, 22, 0.18);
+
+  --accent: #9c4f2e;
+  --accent-ink: #fbf8f4;
+  --accent-soft: rgba(156, 79, 46, 0.1);
+
+  /* The only other hue, reserved for support and crisis resources */
+  --support-bg: #e4efec;
+  --support-ink: #1d4a45;
+  --support-accent: #2c6b64;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --touch-min: 44px;
+  --column: 560px;
+  --tabbar-h: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Emil §2 custom curves; UI motion stays under 300ms */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Not black (Emil §6); each elevation step is a little lighter */
+    --bg: #15110e;
+    --surface: #1d1814;
+    --surface-2: #26201b;
+    --ink: rgba(246, 238, 228, 0.94);
+    --ink-2: rgba(246, 238, 228, 0.64);
+    --ink-3: rgba(246, 238, 228, 0.44);
+    --hairline: rgba(246, 238, 228, 0.08);
+    --hairline-strong: rgba(246, 238, 228, 0.14);
+
+    /* Accent desaturated for dark surfaces (Emil §6) */
+    --accent: #c98a68;
+    --accent-ink: #15110e;
+    --accent-soft: rgba(201, 138, 104, 0.12);
+
+    --support-bg: #13221f;
+    --support-ink: #b5d8d1;
+    --support-accent: #7fb8ae;
+  }
+}
+
+/* ---------- Base ---------- */
+
+html {
+  background-color: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Shell ---------- */
+
+.shell {
+  max-width: var(--column);
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(env(safe-area-inset-top) + var(--space-6)) var(--space-6)
+    calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--space-8));
+}
+
+.screen-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.screen-lede {
+  margin: var(--space-3) 0 0;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.placeholder {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--radius-md);
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+/* ---------- Tab bar ---------- */
+
+.tabbar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  background: var(--surface);
+  border-top: 1px solid var(--hairline);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tabbar ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: var(--column);
+  height: var(--tabbar-h);
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+  list-style: none;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 100%;
+  min-width: var(--touch-min);
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  /* Tab switches happen many times a session, so no transition (Emil §2) */
+}
+
+.tab[aria-current="page"] {
+  color: var(--accent);
+}
+
+.tab-support[aria-current="page"] {
+  color: var(--support-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover {
+    color: var(--ink);
+  }
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 500 16px/1 var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
