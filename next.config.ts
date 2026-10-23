@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
-  // Keep the dev badge off the bottom tab bar.
-  devIndicators: { position: "top-right" },
+  // The dev badge covers the tab bar or the player's close button wherever it sits.
+  devIndicators: false,
 };
 
 export default nextConfig;

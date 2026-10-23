@@ -42,7 +42,7 @@ export type Suggestion = { toolId: string; reason: string };
 
 // What's weighing on someone picks the context; tension breaks ties when they skip that question.
 const BY_WEIGHING: Record<Weighing, Suggestion> = {
-  work: { toolId: "physiological-sigh", reason: "Work came up. This brings your heart rate down fast." },
+  work: { toolId: "physiological-sigh", reason: "Work came up. This slows your breathing back down, fast." },
   healthcare: {
     toolId: "name-place-leave",
     reason: "Being dismissed by care you need is its own weight. This helps you set it down.",
@@ -56,7 +56,7 @@ const BY_WEIGHING: Record<Weighing, Suggestion> = {
 export function suggestTool(checkIn: Pick<CheckIn, "tension" | "weighing">): Suggestion {
   if (checkIn.weighing) return BY_WEIGHING[checkIn.weighing];
   if (checkIn.tension >= 4) {
-    return { toolId: "physiological-sigh", reason: "Your body is wound up. This is the quickest way down." };
+    return { toolId: "physiological-sigh", reason: "Your body is wound up. This slows things down fast." };
   }
   return { toolId: "shoulders-jaw", reason: "A short check of where today is sitting in your body." };
 }
