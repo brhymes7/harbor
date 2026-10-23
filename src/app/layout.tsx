@@ -19,7 +19,8 @@ const description =
   "Three-minute resets for microaggressions, racial battle fatigue, and hard news days. A daily check-in and peer circles. Your data stays on your phone.";
 
 export const metadata: Metadata = {
-  title: "Harbor: a reset for what just happened",
+  metadataBase: new URL("https://harbor-reset.netlify.app"),
+  title: { default: "Harbor: a reset for what just happened", template: "%s | Harbor" },
   description,
   appleWebApp: {
     capable: true,

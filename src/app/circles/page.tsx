@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { CIRCLES } from "@/data/circles";
+
+export const metadata: Metadata = { title: "Peer circles" };
 
 export default function CirclesPage() {
   return (

@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { CheckInFlow } from "@/components/CheckInFlow";
 import { ScreenHeader } from "@/components/ScreenHeader";
+
+export const metadata: Metadata = { title: "Check in" };
 
 export default function CheckInPage() {
   return (

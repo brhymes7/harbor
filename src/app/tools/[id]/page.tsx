@@ -9,7 +9,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const tool = getTool((await params).id);
-  return tool ? { title: `${tool.title}: a ${tool.minutes}-minute reset | Harbor` } : {};
+  return tool ? { title: `${tool.title}: a ${tool.minutes}-minute reset` } : {};
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ id: string }> }) {

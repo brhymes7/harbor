@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { DataControls } from "@/components/DataControls";
 import { ScreenHeader } from "@/components/ScreenHeader";
 
@@ -19,6 +20,8 @@ const FACTS = [
     body: "Download your check-ins any time, or erase everything Harbor saved on this phone.",
   },
 ];
+
+export const metadata: Metadata = { title: "Your data stays on your phone" };
 
 export default function TrustPage() {
   return (

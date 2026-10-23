@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { CONTEXTS, TOOLS, type ToolContext } from "@/data/tools";
 
 const ORDER: ToolContext[] = ["microaggression", "fatigue", "news"];
+
+export const metadata: Metadata = { title: "Resets for what just happened" };
 
 export default function ToolsPage() {
   return (

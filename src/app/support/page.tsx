@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ResourceList } from "@/components/ResourceList";
 import { ScreenHeader } from "@/components/ScreenHeader";
@@ -8,6 +9,8 @@ const verified = new Date(`${VERIFIED_ON}T12:00:00`).toLocaleDateString("en-US",
   day: "numeric",
   year: "numeric",
 });
+
+export const metadata: Metadata = { title: "Crisis lines and Black therapists" };
 
 export default function SupportPage() {
   return (

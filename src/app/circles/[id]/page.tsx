@@ -11,7 +11,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const circle = getCircle((await params).id);
-  return circle ? { title: `${circle.name} | Harbor circles` } : {};
+  return circle ? { title: `${circle.name} circle` } : {};
 }
 
 export default async function CirclePage({ params }: { params: Promise<{ id: string }> }) {

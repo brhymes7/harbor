@@ -1,4 +1,4 @@
-const CACHE_VERSION = "harbor-v1";
+const CACHE_VERSION = "harbor-v2";
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const OFFLINE_URL = "/offline.html";
@@ -34,7 +34,8 @@ async function networkFirst(request) {
     cache.put(request, response.clone());
     return response;
   } catch {
-    const cached = await caches.match(request);
+    // The installed app opens /?source=pwa, so fall back to the same page cached without its query.
+    const cached = (await caches.match(request)) ?? (await caches.match(request, { ignoreSearch: true }));
     return cached ?? (await caches.match(OFFLINE_URL));
   }
 }

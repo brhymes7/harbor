@@ -9,10 +9,11 @@
   --surface: #fbf8f4;
   --surface-2: #efe8df;
   --ink: rgba(38, 28, 22, 0.92);
-  --ink-2: rgba(38, 28, 22, 0.64);
-  --ink-3: rgba(38, 28, 22, 0.46);
+  --ink-2: rgba(38, 28, 22, 0.74);
+  --ink-3: rgba(38, 28, 22, 0.64);
   --hairline: rgba(38, 28, 22, 0.1);
   --hairline-strong: rgba(38, 28, 22, 0.18);
+  /* Text tiers are tuned to stay at or above WCAG AA 4.5:1 on every surface (polish gate) */
 
   --accent: #9c4f2e;
   --accent-ink: #fbf8f4;
@@ -59,8 +60,8 @@
     --surface: #1d1814;
     --surface-2: #26201b;
     --ink: rgba(246, 238, 228, 0.94);
-    --ink-2: rgba(246, 238, 228, 0.64);
-    --ink-3: rgba(246, 238, 228, 0.44);
+    --ink-2: rgba(246, 238, 228, 0.7);
+    --ink-3: rgba(246, 238, 228, 0.54);
     --hairline: rgba(246, 238, 228, 0.08);
     --hairline-strong: rgba(246, 238, 228, 0.14);
 
@@ -1127,7 +1128,7 @@ body {
 }
 
 .reaction {
-  min-height: 36px;
+  min-height: var(--touch-min);
   padding: 0 var(--space-3);
   border: 1px solid var(--hairline-strong);
   border-radius: 999px;
