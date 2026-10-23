@@ -1,67 +1,31 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
 import type { CheckIn } from "./checkin";
 import { addDays, dayKey, type DayKey } from "./days";
+import { parseJson, readKey, useStoredJson, writeKey } from "./localStore";
 
-// Everything lives in this browser's localStorage. There is no server copy.
 const KEY = "harbor-checkins-v1";
-const CHANGE = "harbor-checkins-change";
 
-function read(): string | null {
-  try {
-    return window.localStorage.getItem(KEY);
-  } catch {
-    return null;
-  }
-}
-
-function write(value: string | null) {
-  try {
-    if (value === null) window.localStorage.removeItem(KEY);
-    else window.localStorage.setItem(KEY, value);
-  } catch {
-    // Private browsing or a full quota: nothing is remembered, nothing breaks.
-  }
-  window.dispatchEvent(new Event(CHANGE));
-}
-
-function parse(raw: string | null): CheckIn[] {
-  try {
-    const parsed: unknown = JSON.parse(raw ?? "[]");
-    return Array.isArray(parsed) ? (parsed as CheckIn[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-function subscribe(onChange: () => void) {
-  window.addEventListener(CHANGE, onChange);
-  window.addEventListener("storage", onChange);
-  return () => {
-    window.removeEventListener(CHANGE, onChange);
-    window.removeEventListener("storage", onChange);
-  };
+function load(): CheckIn[] {
+  const parsed = parseJson<unknown>(readKey(KEY), []);
+  return Array.isArray(parsed) ? (parsed as CheckIn[]) : [];
 }
 
 /** Check-ins, oldest first, or null during server render and before hydration. */
 export function useCheckIns(): CheckIn[] | null {
-  const raw = useSyncExternalStore(subscribe, read, () => undefined);
-  return useMemo(() => (raw === undefined ? null : parse(raw)), [raw]);
+  const parsed = useStoredJson<unknown>(KEY, []);
+  if (parsed === null) return null;
+  return Array.isArray(parsed) ? (parsed as CheckIn[]) : [];
 }
 
 export function saveCheckIn(entry: Omit<CheckIn, "id" | "at" | "day">, now = new Date()): CheckIn {
   const checkIn: CheckIn = { ...entry, id: crypto.randomUUID(), at: now.toISOString(), day: dayKey(now) };
-  write(JSON.stringify([...parse(read()), checkIn]));
+  writeKey(KEY, JSON.stringify([...load(), checkIn]));
   return checkIn;
 }
 
-export function clearCheckIns() {
-  write(null);
-}
-
 export function exportCheckIns(): string {
-  return JSON.stringify(parse(read()), null, 2);
+  return JSON.stringify(load(), null, 2);
 }
 
 // For the stage demo: ten days of history with one grace day, so the streak isn't empty on first open.
@@ -81,5 +45,5 @@ export function seedDemoHistory(now = new Date()) {
     const day: DayKey = addDays(today, -back);
     entries.push({ ...sample[back % sample.length], id: `demo-${day}`, at: `${day}T18:00:00.000Z`, day });
   }
-  write(JSON.stringify(entries));
+  writeKey(KEY, JSON.stringify(entries));
 }

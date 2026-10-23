@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { LifeBuoy, Phone } from "lucide-react";
 
-// Shown before any exercise when a check-in reads as can't-settle. Phase 4 turns this into the full support sheet.
-export function SupportCallout() {
+// Shown before any exercise when a check-in, an after-check, or a circle post reads as crisis-level.
+const DEFAULT_LEAD = "A breathing exercise can help, but it isn't enough on its own right now.";
+
+export function SupportCallout({ lead = DEFAULT_LEAD }: { lead?: string }) {
   return (
     <section className="support-callout" role="region" aria-labelledby="support-callout-title">
       <h2 id="support-callout-title" className="support-title">
@@ -10,8 +12,7 @@ export function SupportCallout() {
         This sounds like a lot to hold alone
       </h2>
       <p>
-        A breathing exercise can help, but it isn&apos;t enough on its own right now. Talking to someone can. 988 is free,
-        confidential, and open 24/7, by call or text.
+        {lead} Talking to someone can help. 988 is free, confidential, and open 24/7, by call or text.
       </p>
       <div className="support-actions">
         <a href="tel:988" className="btn btn-support">
