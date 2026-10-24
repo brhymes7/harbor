@@ -5,8 +5,6 @@ import { useEffect } from "react";
 import { offerSupport, suggestTool } from "@/lib/checkin";
 import { seedDemoHistory, useCheckIns } from "@/lib/checkinStore";
 import { dayKey } from "@/lib/days";
-import { computeStreak } from "@/lib/streak";
-import { StreakCard } from "./StreakCard";
 import { SuggestionCard } from "./SuggestionCard";
 import { SupportCallout } from "./SupportCallout";
 
@@ -25,8 +23,6 @@ export function TodaySummary() {
   if (!checkIns) return <div className="card streak streak-loading" aria-hidden="true" />;
 
   const today = dayKey(new Date());
-  const days = new Set(checkIns.map((entry) => entry.day));
-  const streak = computeStreak(days, today);
   const latestToday = checkIns.findLast((entry) => entry.day === today);
 
   return (
@@ -53,7 +49,6 @@ export function TodaySummary() {
           </Link>
         </section>
       )}
-      <StreakCard streak={streak} days={days} today={today} />
     </div>
   );
 }

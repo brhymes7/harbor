@@ -5,7 +5,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { MOODS, WEIGHING, offerSupport, suggestTool, type CheckIn, type Mood, type Tension, type Weighing } from "@/lib/checkin";
 import { saveCheckIn, useCheckIns } from "@/lib/checkinStore";
 import { dayKey } from "@/lib/days";
-import { computeStreak } from "@/lib/streak";
 import { ChoiceChips } from "./ChoiceChips";
 import { NextSteps } from "./NextSteps";
 import { SuggestionCard } from "./SuggestionCard";
@@ -28,7 +27,7 @@ export function CheckInFlow() {
     setSaved(saveCheckIn({ mood, tension, weighing }));
   }
 
-  if (saved) return <CheckInResult checkIn={saved} days={[...(checkIns ?? []).map((entry) => entry.day), saved.day]} />;
+  if (saved) return <CheckInResult checkIn={saved} />;
 
   return (
     <form className="checkin-form" onSubmit={submit}>
@@ -63,27 +62,21 @@ export function CheckInFlow() {
   );
 }
 
-function CheckInResult({ checkIn, days }: { checkIn: CheckIn; days: string[] }) {
+function CheckInResult({ checkIn }: { checkIn: CheckIn }) {
   const heading = useRef<HTMLHeadingElement>(null);
   const [skipped, setSkipped] = useState(false);
-  const streak = computeStreak(days, checkIn.day);
   const support = offerSupport(checkIn);
 
   useEffect(() => heading.current?.focus(), []);
-
-  const line =
-    streak.totalDays === 1
-      ? "That's your first one. Come back tomorrow and it becomes a rhythm."
-      : streak.run === 1
-        ? `Welcome back. All ${streak.totalDays} of your check-in days still count.`
-        : `That's ${streak.run} days in a row of showing up for yourself.`;
 
   return (
     <div className="result">
       <h2 ref={heading} tabIndex={-1} className="result-title">
         Checked in.
       </h2>
-      <p className="screen-lede">{line}</p>
+      <p className="screen-lede">
+        You took a moment to name what happened. Try the suggested reset, or skip it and choose what would help next.
+      </p>
       <div className="result-stack">
         {support && <SupportCallout />}
         <SuggestionCard
