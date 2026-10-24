@@ -18,7 +18,7 @@ export default function SupportPage() {
       <ScreenHeader
         eyebrow="Need more than this?"
         title="You don't have to carry it alone"
-        lede="A reset can take the edge off. Some days need a person. These are free or low-cost, and they get it."
+        lede="A reset can take the edge off. Some days need a person. Explore support lines and therapist directories below."
       />
 
       <section className="support-section" aria-labelledby="crisis-title">
