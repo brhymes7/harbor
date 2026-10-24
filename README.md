@@ -1,6 +1,6 @@
 # Harbor
 
-Three-minute resets for workplace microaggressions, racial battle fatigue, and hard news days, plus a daily check-in, a shame-free streak, and peer circles. Data stays on the device (no accounts, no server).
+For Black professionals after a microaggression or a hard day at work. Harbor follows three steps: name what happened (a 20-second check-in), take a short reset (follow it or skip it), and choose what comes next (a private note, a message to someone you trust, or culturally responsive therapist directories). Data stays on the device (no accounts, no server). Peer circles are demo-only.
 
 Built for the tech event demo on Sat Oct 24, 2026. Plan: `~/.claude/plans/lets-plan-this-idea-synchronous-sparkle.md`.
 

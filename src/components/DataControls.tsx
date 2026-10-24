@@ -2,21 +2,25 @@
 
 import { Download, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { exportCheckIns, useCheckIns } from "@/lib/checkinStore";
+import { exportMyData, useCheckIns } from "@/lib/checkinStore";
+import { useNotes } from "@/lib/noteStore";
 import { clearAll } from "@/lib/localStore";
 
 export function DataControls() {
   const checkIns = useCheckIns();
+  const notes = useNotes();
   const [confirming, setConfirming] = useState(false);
   const [cleared, setCleared] = useState(false);
   const count = checkIns?.length ?? 0;
+  const noteCount = notes?.length ?? 0;
+  const nothing = count === 0 && noteCount === 0;
 
   function download() {
-    const blob = new Blob([exportCheckIns()], { type: "application/json" });
+    const blob = new Blob([exportMyData()], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `harbor-check-ins-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `harbor-my-data-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -35,20 +39,20 @@ export function DataControls() {
       <p className="card-body">
         {checkIns === null
           ? " "
-          : count === 0
-            ? "No check-ins saved."
-            : `${count} ${count === 1 ? "check-in" : "check-ins"}, plus any circle posts and reactions you made.`}
+          : nothing
+            ? "Nothing saved yet."
+            : `${count} ${count === 1 ? "check-in" : "check-ins"} and ${noteCount} private ${noteCount === 1 ? "note" : "notes"}, plus any circle posts you made.`}
       </p>
 
       <div className="data-actions">
-        <button type="button" className="btn btn-quiet btn-block" onClick={download} disabled={count === 0}>
+        <button type="button" className="btn btn-quiet btn-block" onClick={download} disabled={nothing}>
           <Download size={18} strokeWidth={1.75} aria-hidden="true" />
-          Download my check-ins
+          Download my check-ins and notes
         </button>
 
         {confirming ? (
           <div className="confirm" role="group" aria-label="Confirm delete">
-            <p className="confirm-text">This erases every check-in, streak day, and circle post on this phone. It can&apos;t be undone.</p>
+            <p className="confirm-text">This erases every check-in, private note, and circle post on this phone. It can&apos;t be undone.</p>
             <div className="confirm-actions">
               <button type="button" className="btn btn-danger" onClick={erase}>
                 Delete everything

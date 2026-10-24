@@ -14,7 +14,7 @@ export default function ToolsPage() {
       <ScreenHeader
         eyebrow="Three minutes or less"
         title="Resets for what just happened"
-        lede="Short exercises for after a microaggression, a long stretch of racial battle fatigue, or a hard news day."
+        lede="Short exercises for after a microaggression, the weight of being the only one, or a hard news day. They take the edge off. They don't fix what happened."
       />
       {ORDER.map((context) => (
         <section key={context} className="tool-group" aria-labelledby={`group-${context}`}>

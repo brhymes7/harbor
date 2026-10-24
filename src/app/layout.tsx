@@ -16,7 +16,7 @@ const sans = Inter({
 });
 
 const description =
-  "Three-minute resets for microaggressions, racial battle fatigue, and hard news days. A daily check-in and peer circles. Your data stays on your phone.";
+  "For Black professionals after a microaggression or a hard day at work: name what happened, take a short reset, and choose your next step. Private, on your phone.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://harbor-reset.netlify.app"),

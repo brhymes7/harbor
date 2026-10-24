@@ -7,8 +7,8 @@ export default function TodayPage() {
     <>
       <ScreenHeader
         eyebrow="Today"
-        title="A reset for what just happened"
-        lede="Check in, take three minutes for your nervous system, and come back tomorrow."
+        title="For what happens at work"
+        lede="Microaggressions, being the only one, the weight you carry home. Acknowledge it, reset your body, and choose your next step."
       />
       <TodaySummary />
       <Link href="/trust" className="text-link trust-link">

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { CONTEXTS, type Tool } from "@/data/tools";
 import { BreathGuide } from "./BreathGuide";
 import { ChoiceChips } from "./ChoiceChips";
+import { NextSteps } from "./NextSteps";
 import { SupportCallout } from "./SupportCallout";
 
 const AFTER = [
@@ -120,12 +121,12 @@ export function ToolPlayer({ tool }: { tool: Tool }) {
           </div>
           {after === "lighter" && (
             <p className="step-body after-reply">
-              That&apos;s your nervous system doing its job. This reset is here whenever you need it again.
+              That&apos;s your body doing its job. This reset is here whenever you need it again.
             </p>
           )}
           {after === "same" && (
             <p className="step-body after-reply">
-              That&apos;s okay. Some days need more than one round. Try another reset, or come back to this later.
+              That&apos;s okay. One reset doesn&apos;t undo what happened. Some days need more than one round.
             </p>
           )}
           {after === "heavier" && (
@@ -134,14 +135,14 @@ export function ToolPlayer({ tool }: { tool: Tool }) {
             </div>
           )}
           {after && (
-            <div className="player-links">
-              <Link href="/" className="btn btn-block">
-                Back to Today
-              </Link>
-              <Link href="/tools" className="text-link">
-                See all resets
-              </Link>
-            </div>
+            <>
+              <NextSteps />
+              <div className="player-links">
+                <Link href="/" className="text-link">
+                  Back to Today
+                </Link>
+              </div>
+            </>
           )}
         </div>
       )}

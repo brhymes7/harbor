@@ -31,27 +31,29 @@ export function TodaySummary() {
 
   return (
     <div className="today">
-      <StreakCard streak={streak} days={days} today={today} />
       {latestToday ? (
         <>
           {offerSupport(latestToday) && <SupportCallout />}
           <SuggestionCard suggestion={suggestTool(latestToday)} eyebrow="From today's check-in" />
           <Link href="/check-in" className="text-link">
-            Check in again
+            Something else happened? Check in again
           </Link>
         </>
       ) : (
-        <div className="today-cta">
+        <section className="card event-card" aria-labelledby="event-title">
+          <h2 id="event-title" className="card-title">
+            Something happened?
+          </h2>
           <p className="card-body">
-            {checkIns.length === 0
-              ? "Start with a 20-second check-in. We'll point you to the right reset."
-              : "You haven't checked in today. It takes about 20 seconds."}
+            A comment, a meeting, a look. Take twenty seconds to name it, then a short reset, then you choose what
+            comes next.
           </p>
           <Link href="/check-in" className="btn btn-block">
-            Start today&apos;s check-in
+            Start a check-in
           </Link>
-        </div>
+        </section>
       )}
+      <StreakCard streak={streak} days={days} today={today} />
     </div>
   );
 }

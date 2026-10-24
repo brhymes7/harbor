@@ -15,6 +15,18 @@ describe("suggestTool", () => {
     expect(suggestTool({ tension: 2, weighing: "news" }).toolId).toBe("five-senses");
   });
 
+  it("sends a microaggression to the name-it reset and being the only one to 4-7-8", () => {
+    expect(suggestTool({ tension: 4, weighing: "microaggression" }).toolId).toBe("name-place-leave");
+    expect(suggestTool({ tension: 3, weighing: "only-one" }).toolId).toBe("breath-478");
+  });
+
+  it("falls back for options saved before they were removed", () => {
+    for (const legacy of ["family", "money"]) {
+      const checkIn = { tension: 4, weighing: legacy } as unknown as Parameters<typeof suggestTool>[0];
+      expect(suggestTool(checkIn).toolId).toBe("physiological-sigh");
+    }
+  });
+
   it("uses tension when nothing is picked", () => {
     expect(suggestTool({ tension: 4 }).toolId).toBe("physiological-sigh");
     expect(suggestTool({ tension: 2 }).toolId).toBe("shoulders-jaw");

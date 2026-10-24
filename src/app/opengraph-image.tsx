@@ -30,7 +30,7 @@ export default function OpengraphImage() {
           A three-minute reset for what just happened.
         </div>
         <div style={{ display: "flex", marginTop: 40, fontSize: 26, color: "#9c4f2e" }}>
-          Microaggressions · Racial battle fatigue · Hard news days
+          For Black professionals · Microaggressions · Being the only one
         </div>
       </div>
     ),

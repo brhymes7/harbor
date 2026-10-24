@@ -1197,6 +1197,128 @@ body {
   font-size: 14px;
 }
 
+/* ---------- Workplace flow: event card, compact streak, next steps ---------- */
+
+.event-card .card-body {
+  margin-top: var(--space-2);
+}
+
+.streak-compact {
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.streak-row {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.streak-line {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.week-compact {
+  margin: 0;
+}
+
+.week-compact .week-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.streak-compact .streak-foot {
+  margin-top: var(--space-3);
+}
+
+.link-button {
+  display: flex;
+  margin: var(--space-2) auto 0;
+  border: 0;
+  background: none;
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+.next-steps {
+  margin-top: var(--space-8);
+}
+
+.next-steps-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.next-steps-lede {
+  margin: var(--space-1) 0 var(--space-4);
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.next-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.next-item {
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+}
+
+.next-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent);
+}
+
+.next-name {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.next-detail {
+  margin: var(--space-1) 0 var(--space-3);
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+.draft {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 15px;
+}
+
+.note-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.next-status {
+  margin: var(--space-2) 0 0;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+/* The live region stays in the DOM so screen readers announce it, but takes no space while empty */
+.next-status:empty {
+  margin: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* The words and countdown carry the pacing when motion is off */
   .breath-orb,

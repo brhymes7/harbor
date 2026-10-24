@@ -17,11 +17,11 @@ export const TENSION_LEVELS = [
 ] as const;
 
 export const WEIGHING = [
+  { id: "microaggression", label: "A microaggression" },
+  { id: "only-one", label: "Being the only one" },
   { id: "work", label: "Work" },
-  { id: "news", label: "The news" },
   { id: "healthcare", label: "Health care" },
-  { id: "family", label: "Family" },
-  { id: "money", label: "Money" },
+  { id: "news", label: "The news" },
   { id: "tired", label: "Just tired" },
 ] as const;
 
@@ -40,21 +40,29 @@ export type CheckIn = {
 
 export type Suggestion = { toolId: string; reason: string };
 
-// What's weighing on someone picks the context; tension breaks ties when they skip that question.
+// What happened picks the context; tension decides when they skip that question.
 const BY_WEIGHING: Record<Weighing, Suggestion> = {
+  microaggression: {
+    toolId: "name-place-leave",
+    reason: "Something happened that shouldn't have. Name it before you decide what to do with it.",
+  },
+  "only-one": {
+    toolId: "breath-478",
+    reason: "Carrying the room alone keeps your body braced. This lets it stand down for a minute.",
+  },
   work: { toolId: "physiological-sigh", reason: "Work came up. This slows your breathing back down, fast." },
   healthcare: {
     toolId: "name-place-leave",
     reason: "Being dismissed by care you need is its own weight. This helps you set it down.",
   },
   news: { toolId: "five-senses", reason: "The news came up. This brings you back to the room you're in." },
-  family: { toolId: "breath-478", reason: "Family can be heavy to carry. This slows everything down." },
-  money: { toolId: "breath-478", reason: "Money stress keeps the body braced. This slows everything down." },
   tired: { toolId: "shoulders-jaw", reason: "Tired usually lives in the shoulders and jaw. Start there." },
 };
 
 export function suggestTool(checkIn: Pick<CheckIn, "tension" | "weighing">): Suggestion {
-  if (checkIn.weighing) return BY_WEIGHING[checkIn.weighing];
+  // Check-ins saved before the workplace focus can hold options that no longer exist (family, money).
+  const byContext = checkIn.weighing ? BY_WEIGHING[checkIn.weighing] : undefined;
+  if (byContext) return byContext;
   if (checkIn.tension >= 4) {
     return { toolId: "physiological-sigh", reason: "Your body is wound up. This slows things down fast." };
   }

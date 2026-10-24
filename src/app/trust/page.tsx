@@ -9,7 +9,7 @@ const FACTS = [
   },
   {
     title: "No server copy",
-    body: "Check-ins, your streak, and circle posts are saved only in this browser on this phone. They never leave it.",
+    body: "Check-ins, private notes, and circle posts are saved only in this browser on this phone. They never leave it.",
   },
   {
     title: "No tracking",
@@ -17,7 +17,7 @@ const FACTS = [
   },
   {
     title: "You can take it or erase it",
-    body: "Download your check-ins any time, or erase everything Harbor saved on this phone.",
+    body: "Download your check-ins and notes any time, or erase everything Harbor saved on this phone.",
   },
 ];
 

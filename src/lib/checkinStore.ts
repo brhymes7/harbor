@@ -3,6 +3,7 @@
 import type { CheckIn } from "./checkin";
 import { addDays, dayKey, type DayKey } from "./days";
 import { parseJson, readKey, useStoredJson, writeKey } from "./localStore";
+import { loadNotes } from "./noteStore";
 
 const KEY = "harbor-checkins-v1";
 
@@ -24,8 +25,8 @@ export function saveCheckIn(entry: Omit<CheckIn, "id" | "at" | "day">, now = new
   return checkIn;
 }
 
-export function exportCheckIns(): string {
-  return JSON.stringify(load(), null, 2);
+export function exportMyData(): string {
+  return JSON.stringify({ checkIns: load(), notes: loadNotes() }, null, 2);
 }
 
 // For the stage demo: ten days of history with one grace day, so the streak isn't empty on first open.

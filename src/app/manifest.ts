@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Harbor: a reset for what just happened",
     short_name: "Harbor",
     description:
-      "Three-minute resets for microaggressions, racial battle fatigue, and hard news days. Your data stays on your phone.",
+      "For Black professionals after a microaggression or a hard day at work. Name it, reset, choose your next step. Private, on your phone.",
     start_url: "/?source=pwa",
     scope: "/",
     display: "standalone",

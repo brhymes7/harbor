@@ -7,6 +7,7 @@ import { saveCheckIn, useCheckIns } from "@/lib/checkinStore";
 import { dayKey } from "@/lib/days";
 import { computeStreak } from "@/lib/streak";
 import { ChoiceChips } from "./ChoiceChips";
+import { NextSteps } from "./NextSteps";
 import { SuggestionCard } from "./SuggestionCard";
 import { SupportCallout } from "./SupportCallout";
 import { TensionScale } from "./TensionScale";
@@ -45,9 +46,9 @@ export function CheckInFlow() {
 
       <fieldset className="question">
         <legend className="question-title">
-          {"What's weighing on you?"} <span className="optional">Optional</span>
+          What happened? <span className="optional">Optional</span>
         </legend>
-        <ChoiceChips label="What's weighing on you" options={WEIGHING} value={weighing} onChange={setWeighing} optional />
+        <ChoiceChips label="What happened" options={WEIGHING} value={weighing} onChange={setWeighing} optional />
       </fieldset>
 
       <div className="form-footer">
@@ -64,6 +65,7 @@ export function CheckInFlow() {
 
 function CheckInResult({ checkIn, days }: { checkIn: CheckIn; days: string[] }) {
   const heading = useRef<HTMLHeadingElement>(null);
+  const [skipped, setSkipped] = useState(false);
   const streak = computeStreak(days, checkIn.day);
   const support = offerSupport(checkIn);
 
@@ -89,9 +91,18 @@ function CheckInResult({ checkIn, days }: { checkIn: CheckIn; days: string[] }) 
           eyebrow={support ? "When you're ready" : "Suggested reset"}
         />
       </div>
-      <Link href="/" className="text-link">
-        Back to Today
-      </Link>
+      {skipped ? (
+        <NextSteps heading="Skipped the reset. What would help instead?" />
+      ) : (
+        <button type="button" className="text-link link-button" onClick={() => setSkipped(true)}>
+          Skip the reset, choose a next step
+        </button>
+      )}
+      <div className="player-links">
+        <Link href="/" className="text-link">
+          Back to Today
+        </Link>
+      </div>
     </div>
   );
 }
